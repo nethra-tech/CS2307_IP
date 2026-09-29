@@ -1,0 +1,203 @@
+Index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Shopping</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Online Shopping - Order Viewer</h1>
+        <button onclick="loadOrders()">Load Orders</button>
+        <div id="orderData"></div>
+    </div>
+    <script>
+        function loadOrders() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var xml = this.responseXML;
+                    var orders = xml.getElementsByTagName("order");
+                    var output = "<h2>Order Details</h2>";
+                    output += "<table>";
+                    output += "<tr>";
+                    output += "<th>ID</th>";
+                    output += "<th>Customer</th>";
+                    output += "<th>Product</th>";
+                    output += "<th>Quantity</th>";
+                    output += "<th>Price</th>";
+                    output += "</tr>";
+                    for (var i = 0; i < orders.length; i++) {
+                        var id = orders[i]
+                            .getElementsByTagName("id")[0]
+                            .childNodes[0].nodeValue;
+                        var customer = orders[i]
+                            .getElementsByTagName("customer")[0]
+                            .childNodes[0].nodeValue;
+                        var product = orders[i]
+                            .getElementsByTagName("product")[0]
+                            .childNodes[0].nodeValue;
+                        var quantity = orders[i]
+                            .getElementsByTagName("quantity")[0]
+                            .childNodes[0].nodeValue;
+                        var price = orders[i]
+                            .getElementsByTagName("price")[0]
+                            .childNodes[0].nodeValue;
+                        output += "<tr>";
+                        output += "<td>" + id + "</td>";
+                      output += "<td>" + customer + "</td>";
+                        output += "<td>" + product + "</td>";
+                        output += "<td>" + quantity + "</td>";
+                        output += "<td>$" + price + "</td>";
+                        output += "</tr>";
+                    }
+                    output += "</table>";
+                    document.getElementById("orderData").innerHTML = output;
+                }   };
+            xhttp.open("GET", "orders.xml", true);
+            xhttp.send();
+        }
+    </script>
+</body> </html>
+Orders.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<orders>
+    <order>
+        <id>101</id>
+        <customer>John</customer>
+        <product>Wireless Mouse</product>
+        <quantity>2</quantity>
+        <price>25.99</price>
+    </order>
+    <order>
+        <id>102</id>
+        <customer>Selva</customer>
+        <product>Gaming Keyboard</product>
+        <quantity>1</quantity>
+        <price>89.50</price>
+    </order>
+    <order>
+        <id>103</id>
+        <customer> Kumar</customer>
+        <product>USB Cable</product>
+        <quantity>3</quantity>
+        <price>10.99</price>
+    </order>
+    <order>
+        <id>104</id>
+        <customer>Priya</customer>
+        <product>Webcam</product>
+        <quantity>1</quantity>
+        <price>45.99</price>
+    </order>
+    <order>
+        <id>105</id>
+        <customer>Rahul</customer>
+        <product>Laptop Stand</product>
+        <quantity>2</quantity>
+        <price>35.50</price>
+    </order>
+    <order>
+        <id>106</id>
+        <customer>Anitha</customer>
+        <product>Headphones</product>
+        <quantity>1</quantity>
+        <price>59.99</price>
+    </order>
+    <order>
+        <id>107</id>
+        <customer>Mathi</customer>
+        <product>Bluetooth Speaker</product>
+        <quantity>2</quantity>
+        <price>75.00</price>
+    </order>
+    <order>
+        <id>108</id>
+        <customer>Meena</customer>
+        <product>Keyboard</product>
+        <quantity>1</quantity>
+        <price>40.00</price>
+    </order>
+    <order>
+        <id>109</id>
+        <customer>Vijay</customer>
+        <product>Power Bank</product>
+        <quantity>2</quantity>
+        <price>30.99</price>
+    </order>
+    <order>
+        <id>110</id>
+        <customer>Nethra</customer>
+        <product>Smart Watch</product>
+        <quantity>1</quantity>
+        <price>120.00</price>
+    </order>
+</orders>
+Style.css
+{
+box-sizing: border-box;  }
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #eaf2f8;  }
+.container {
+width: 90%;
+margin: 40px auto;
+background: white;
+padding: 30px;
+border-radius: 15px; }
+h1 {
+text-align: center;
+color: #1a5276;
+margin-bottom: 25px; }
+button {
+display: block;
+margin: 0 auto 30px;
+padding: 12px 25px;
+font-size: 16px;
+background: #1a5276;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer; }
+button:hover {
+background: #154360; }
+h2 {
+text-align: center;
+color: #2c3e50;
+margin-bottom: 20px; }
+table {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0;
+overflow: hidden;
+border-radius: 10px;
+border: 1px solid #ccd1d1; }
+th {
+background: #2874a6;
+color: white;
+padding: 15px;
+text-align: center; }
+td {
+padding: 13px;
+text-align: center;
+border-bottom: 1px solid #ddd; }
+tr:nth-child(even) {
+background: #f4f8fb; }
+tr:hover {
+background: #d6eaf8; }
+td:last-child {
+font-weight: bold; }
+@media screen and (max-width: 600px) {
+.container {
+width: 95%;
+padding: 15px; }
+h1 {
+font-size: 24px; }
+table {
+font-size: 12px; }
+th,
+td {
+padding: 8px 4px; }
+button {
+width: 100%; } }
